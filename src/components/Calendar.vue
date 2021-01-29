@@ -50,7 +50,6 @@ export default {
     yorimichi,
   },
   data: () => ({
-    today: moment().format("yyyy-MM-DD hh:mm a"),
     value: moment().format("yyyy-MM-DD"),
     weekdays: [0, 1, 2, 3, 4, 5, 6],
     ready: false,
@@ -77,28 +76,22 @@ export default {
   },
   computed: {
     title() {
-      return moment(this.today).format("yyyy年 M月");
+      return moment().format("yyyy年 M月");
     },
     cal() {
       return this.ready ? this.$refs.calendar : null;
     },
     nowY() {
-      //0:00が0pxとして、hour分48px・minute分0.8px足した
-      var m_today = moment(this.today);
-      var hour;
-      if (m_today.format("a") == "am") {
-        //午前だったら
-        if (m_today.format("h") == "12") hour = 0;
-        //AM12:00とかいう変わった表示仕様のせいで...
-        else hour = Number(m_today.format("h"));
-      } else {
-        //午後だったら
-        if (m_today.format("h") == "12") hour = 12;
-        else hour = Number(m_today.format("hh")) + 12;
-      }
-      var minute = Number(m_today.format("m"));
-      var answer = 0 + 48 * hour + 0.8 * minute;
-      return this.cal ? answer + "px" : "-10px";
+      /*
+      0時0分=0px
+      hour時minute分 = hour*48px+minute*0.8px
+      h->12時間表記 H->24時間表記 以下例
+      AM8時...H->8 HH->08
+      PM8時...h->8 hh->08 H,HH->20
+      */
+      var now = moment();
+      var answer = 48 * now.hour() + 0.8 * now.minute(); //どちらもNumber型
+      return this.cal ? answer + 'px' : '-10px';
     },
   },
   methods: {
