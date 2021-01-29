@@ -50,7 +50,8 @@ export default {
     yorimichi,
   },
   data: () => ({
-    today: moment().format("yyyy-MM-DD hh:mm a"),
+    today: moment().format("YYYY/MM/DDTHH:mm:ss"), //ex) 2021/01/29T18:23:20
+    //today: moment().format("yyyy-MM-DD hh:mm a"),
     value: moment().format("yyyy-MM-DD"),
     weekdays: [0, 1, 2, 3, 4, 5, 6],
     ready: false,
