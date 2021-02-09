@@ -84,12 +84,6 @@ export default {
     },
   },
   mounted() {
-    /*
-    console.log(" items[0]の型: " + typeof this.items[0]);
-    console.log(" items: " + this.items);
-    console.log(" itemsの型: " + typeof this.items);
-    console.dir(this.items);
-    */
   },
   methods: {
     postFreeWord() {
@@ -106,14 +100,9 @@ export default {
           headers: headers,
         })
         .then((response) => {
-          /*console.log("response.dataの型@GET: "+ typeof response.data);
-            console.log("getしたresponse.dataの中身: ");
-            console.dir(response.data);
-            console.dir(response.data[0]);*/
           this.items = [];
           for (let i in response.data) {
             this.items[i] = response.data[i];
-            //console.dir(this.items[i]);
           }
           this.frag = true;
         })

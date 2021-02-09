@@ -123,14 +123,6 @@ export default {
       { text: "75", value: "寺院、神社、教会" },
     ],
   }),
-  /*watch: {
-    selectSpot_Other: {
-    handler: function (newValue, oldValue) {
-      console.log("selectSpot_Otherが: [" + oldValue.selected + "] から [" + newValue.selected + "]に変更されたよ");
-    },
-    deep:true
-    },
-  },*/
   mounted() {
    this.getData();
   },
@@ -162,10 +154,8 @@ export default {
           headers: headers,
         })
         .then((response) => {
-          //console.dir(response.data);
           const result = response.data.map(dict => dict.genre);
           this.selectSpot_Other.selected =result;
-          //console.log("get後のthis.selectSpot_Other.selected"+this.selectSpot_Other.selected);
         })
         .catch((error) => {
           if (error.response.status == 401) this.$store.commit("logout");

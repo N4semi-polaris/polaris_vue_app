@@ -69,50 +69,7 @@
           <v-btn v-else dark fab color="#0461cd" v-on:click="displayRainAvoid()"
             ><v-icon large>mdi-umbrella</v-icon></v-btn
           >-->
-        </v-card-title>
-        <!--
-        <v-card-subtitle class="ml-10">
-          {{ makeStartTime(start_time) }}
-          <v-icon color="#0575e6" dense>mdi-arrow-right-bold</v-icon>
-          {{ makeEndTime(end_time) }}
-          <span class="ml-1">{{ getTransTime(start_time, end_time) }}</span
-          ><br />
-          {{ trans_costs }}円
-          <span class="ml-3">{{ nearest_station }}／{{ nearest_route }}</span>
-        </v-card-subtitle>-->
-        <!--
-        <v-row>
-          <v-col>
-            <v-list three-line>
-              <v-list-item-group>
-                <v-list-item
-                  v-for="(item, i) in selectedResult.sections"
-                  :key="i"
-                >
-                  <v-list-item-content>
-                    <v-list-item-title v-text="i + 1"></v-list-item-title>
-                    <v-list-item-subtitle
-                      v-text="'start.name：' + item.start.name"
-                    ></v-list-item-subtitle>
-                    <v-list-item-subtitle
-                      v-text="'start.time：' + item.start.time"
-                    ></v-list-item-subtitle>
-                    <v-list-item-subtitle
-                      v-text="'end.name：' + item.end.name"
-                    ></v-list-item-subtitle>
-                    <v-list-item-subtitle
-                      v-text="'end.time：' + item.end.time"
-                    ></v-list-item-subtitle>
-                    <v-list-item-subtitle
-                      v-text="'type：' + item.type"
-                    ></v-list-item-subtitle>
-                    <v-divider></v-divider>
-                  </v-list-item-content>
-                </v-list-item>
-              </v-list-item-group>
-            </v-list>
-          </v-col>
-        </v-row>-->
+        </v-card-title>  
         <v-card-actions>
                 <v-btn
                   class="mb-3"
@@ -159,7 +116,6 @@
 
 <script>
 import App_bar from "../components/App_bar";
-//import moment from "moment";
 
 export default {
   name: "ListDetails2",
@@ -171,13 +127,6 @@ export default {
     useFoot: true,
     useBus: false,
     useTrain: true,
-    place_name: "",
-    start_time: "",
-    end_time: "",
-    trans_costs: "",
-    trans_time: "2時間2分",
-    nearest_station: "新小平駅",
-    nearest_route: "JR武蔵野線",
     isRainy: true,
     rainAvoid: true,
     */
@@ -194,10 +143,6 @@ export default {
   mounted() {
     /*
     this.rainAvoid = false;
-    this.place_name = this.$route.query.place_name;
-    this.start_time = this.$route.query.start_time;
-    this.end_time = this.$route.query.end_time;
-    this.trans_costs = this.$route.query.trans_costs;
     */
     this.selectedResult = this.$store.getters.getSelectedResult;
     console.log(" selectedResultの型: " + typeof this.selectedResult);
@@ -211,41 +156,10 @@ export default {
       }
   },
   methods: {
-    /* makeStartTime: function (start_time) {
-      //出発時間を返す
-      return this.adjustAMPM(moment(start_time, "YYYY-MM-DD hh:mm a"));
-    },
-    makeEndTime: function (end_time) {
-      //到着時間を返す
-      return this.adjustAMPM(moment(end_time, "YYYY-MM-DD hh:mm a"));
-    },
-    adjustAMPM: function (time) {
-      //出発・到着時間のAM/PMを調整する
-      var hour;
-      if (time.format("a") == "am") {
-        if (time.format("h") == "12") hour = 0;
-        else hour = Number(time.format("h"));
-      } else {
-        if (time.format("h") == "12") hour = 12;
-        else hour = Number(time.format("h")) + 12;
-      }
-      return hour + ":" + time.format("mm");
-    },
-    getTransTime: function (start_time, end_time) {
-      //移動時間を計算する
-      var start = moment(start_time, "YYYY-MM-DD hh:mm a");
-      var end = moment(end_time, "YYYY-MM-DD hh:mm a");
-      var minute = end.diff(start, "minutes");
-      var hour = end.diff(start, "hours");
-      var transtime;
-      if (hour == 0) transtime = "（" + minute + "分）";
-      else transtime = "（" + hour + "時間" + (minute - 60 * hour) + "分）";
-      return transtime;
-    },
+    /* 
     displayRainAvoid() {
       this.rainAvoid = !this.rainAvoid;
     },*/
-    ////////////平山記述メソッド//////////
     calcMaxStayingTime() {
       this.maxStayingTimeHours = Math.floor(this.selectedResult.mins / 60);
       this.maxStayingTimeMins =
@@ -288,7 +202,6 @@ export default {
           );
         });
     },
-    //////////
   },
 };
 </script>

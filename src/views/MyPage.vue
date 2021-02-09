@@ -249,7 +249,6 @@ export default {
   },
 
   mounted() {
-    //console.log("MyPageのmountedが実行されたよ");
     const headers = {
       "Content-Type": "application/json",
       "Authorization": "JWT " + this.$store.getters.getToken,
@@ -367,9 +366,9 @@ export default {
           }
         })
         .catch((error) => {
-          //this.address = "あああ";
           console.log(error, "エラーになっちゃった..:＠getAddressData");
-          //if (error.response.status == 401) //this.$store.commit("logout")
+          if (error.response.status == 401) //this.$store.commit("logout")
+          ;
         });
     },
     postAddressData() {
