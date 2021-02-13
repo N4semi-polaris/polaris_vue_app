@@ -1,11 +1,11 @@
 <template>
   <div id="Loading" class="fullview d-flex">
     <v-container class="align-self-center" no-gutters>
-      <v-row class="justify-center" no-gutters>
+      <!--<v-row class="justify-center" no-gutters>
         <v-col class="flex-grow-0">
           <v-img :src="PolarisLogo" width="250px" />
         </v-col>
-      </v-row>
+      </v-row>-->
       <v-row class="pa-3"><v-col /></v-row>
       <v-row class="justify-center" no-gutters>
         <v-col class="flex-grow-0">

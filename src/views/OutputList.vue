@@ -9,8 +9,9 @@
     </v-toolbar>
 
     <v-sheet color="#f5f5f5" height="15px"></v-sheet>
+    <Loading v-if="isShow"></Loading>
     <template v-if="noResults"><v-col align="center">該当なし</v-col></template>
-    <template v-if="isShow">
+    <template v-if="!isShow">
       <v-list shaped>
         <template v-for="(result, index) in results">
           <v-list-item :key="result.index" @click="toListDetails(result)">
@@ -69,17 +70,19 @@
 
 <script>
 import App_bar from "../components/App_bar";
+import Loading from "../components/Loading.vue";
 
 export default {
   name: "OutputList",
   components: {
     App_bar,
+    Loading,
   },
   data: () => ({
     hit_num: 0,
     results: [],
     model: -1,
-    isShow: false,
+    isShow: true,
     noResults: false,
     URL: "/recommend/",
   }),
@@ -113,7 +116,7 @@ export default {
         console.log("this.results" + i + ".sections: ");
         console.dir(this.results[i].sections);
       }
-      this.isShow = true;
+      this.isShow = false;
     }
   },
   /*computed: {
@@ -155,7 +158,8 @@ export default {
           }
           if (response.data.length == 0 ||response.data.status=="該当なし") {
             this.noResults = true;
-          }else{this.isShow = true;} 
+          }
+            this.isShow = false; 
         })
         .catch((error) => {
           console.log("エラーになっちゃった..:＠getData");
