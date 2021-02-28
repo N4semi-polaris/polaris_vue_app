@@ -72,8 +72,6 @@ export default {
     selectedFavSpot: {},
   },
   mounted() {
-    console.log(" selectedFavSpotの型: " + typeof this.selectedFavSpot);
-    console.log(" selectedFavSpot: " + this.selectedFavSpot);
     console.dir(this.selectedFavSpot);
   },
   data: () => ({}),

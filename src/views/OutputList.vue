@@ -9,8 +9,9 @@
     </v-toolbar>
 
     <v-sheet color="#f5f5f5" height="15px"></v-sheet>
+    <Loading v-if="isShow"></Loading>
     <template v-if="noResults"><v-col align="center">該当なし</v-col></template>
-    <template v-if="isShow">
+    <template v-if="!isShow">
       <v-list shaped>
         <template v-for="(result, index) in results">
           <v-list-item :key="result.index" @click="toListDetails(result)">
@@ -69,18 +70,19 @@
 
 <script>
 import App_bar from "../components/App_bar";
-//import moment from "moment";
+import Loading from "../components/Loading.vue";
 
 export default {
   name: "OutputList",
   components: {
     App_bar,
+    Loading,
   },
   data: () => ({
     hit_num: 0,
     results: [],
     model: -1,
-    isShow: false,
+    isShow: true,
     noResults: false,
     URL: "//nakano2021seminar.pythonanywhere.com/recommend/",
   }),
@@ -114,7 +116,7 @@ export default {
         console.log("this.results" + i + ".sections: ");
         console.dir(this.results[i].sections);
       }
-      this.isShow = true;
+      this.isShow = false;
     }
   },
   /*computed: {
@@ -129,54 +131,11 @@ export default {
   },*/
   methods: {
     /*
-    makeStartTime: function (start_time) {
-      //出発時間を返す 
-      return this.adjustAMPM(moment(start_time, "YYYY-MM-DD hh:mm a"));
-    },
-    makeEndTime: function (end_time) {
-      //到着時間を返す 
-      return this.adjustAMPM(moment(end_time, "YYYY-MM-DD hh:mm a"));
-    },
-    adjustAMPM: function (time) {
-      //出発・到着時間のAM/PMを調整する
-      var hour;
-      if (time.format("a") == "am") {
-        if (time.format("h") == "12") hour = 0;
-        else hour = Number(time.format("h"));
-      } else {
-        if (time.format("h") == "12") hour = 12;
-        else hour = Number(time.format("h")) + 12;
-      }
-      return hour + ":" + time.format("mm");
-    },
-    getTransTime: function (start_time, end_time) {
-      //移動時間を計算する
-      var start = moment(start_time, "YYYY-MM-DD hh:mm a");
-      var end = moment(end_time, "YYYY-MM-DD hh:mm a");
-      var minute = end.diff(start, "minutes");
-      var hour = end.diff(start, "hours");
-      var transtime;
-      if (hour == 0) transtime = "（" + minute + "分）";
-      else transtime = "（" + hour + "時間" + (minute - 60 * hour) + "分）";
-      return transtime;
-    },
     taskOption: function (option) {
       //タスクラベルをつけるかどうか
       return option ? true : false;
     },
-    toListDetails: function (result) {
-      this.$router.push({
-        name: "ListDetails",
-        query: {
-          place_name: result.place_name,
-          start_time: result.start_time,
-          end_time: result.end_time,
-          trans_costs: result.trans_costs,
-          task_option: result.task_option,
-        },
-      });
-      this.isShowDetails = true;
-    },*/
+    */
     /////////////////////////以下メソッド平山記述////////////////
     getData(url) {
       const headers = { Authorization: "JWT " + this.$store.getters.getToken };
@@ -199,7 +158,8 @@ export default {
           }
           if (response.data.length == 0 ||response.data.status=="該当なし") {
             this.noResults = true;
-          }else{this.isShow = true;} 
+          }
+            this.isShow = false; 
         })
         .catch((error) => {
           console.log("エラーになっちゃった..:＠getData");

@@ -82,14 +82,6 @@ export default {
       { text: "34", value: "和菓子" },
     ],
   }),
-  /*watch: {
-    selectSpot_Gourmet: {
-    handler: function (newValue, oldValue) {
-      console.log("selectSpot_Gourmetが: [" + oldValue.selected + "] から [" + newValue.selected + "]に変更されたよ");     
-    },
-    deep:true
-    },
-  },*/
   mounted() {
    this.getData();
   },
@@ -122,11 +114,8 @@ export default {
           headers: headers,
         })
         .then((response) => {
-          //console.dir(response.data);
           const result = response.data.map(dict => dict.genre);
-          //console.log(result);
           this.selectSpot_Gourmet.selected =result;
-          //console.log("get後のthis.selectSpot_Gourmet.selected"+this.selectSpot_Gourmet.selected);
         })
         .catch((error) => {
           if (error.response.status == 401) this.$store.commit("logout");

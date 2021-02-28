@@ -47,7 +47,6 @@ export default {
     frag: false,
   }),
   created(){
-    //console.log("createdが動いたよ〜()");
     this.getFavSpots();
   },
   mounted() {
@@ -55,11 +54,9 @@ export default {
   },
   methods: {
     toCreateFavSpot() {
-      //console.log("this.spotValueの中身："+this.spot[this.spotValue]);
       this.$router.push({ name: "CreateFavoriteSpot" });
     },
     toMyPage() {
-      //console.log("this.spotValueの中身："+this.spot[this.spotValue]);
       this.$router.push({ name: "MyPage" });
     },
 
@@ -71,12 +68,8 @@ export default {
           headers: headers,
         })
         .then((response) => {
-          /*console.log("response.dataの型@GET: " + typeof response.data);
-          console.log("getしたresponse.dataの中身: ");
-          console.dir(response.data);*/
           for (let i in response.data) {
             this.spots[i] = response.data[i];
-            //console.dir(this.spots[i]);
           }
           this.frag = true;
         })
